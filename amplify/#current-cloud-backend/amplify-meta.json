@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifylogin-dev-121702-authRole",
+      "UnauthRoleArn": "arn:aws:iam::877228122437:role/amplify-amplifylogin-dev-121702-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::877228122437:role/amplify-amplifylogin-dev-121702-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-amplifylogin-dev-121702-deployment",
+      "UnauthRoleName": "amplify-amplifylogin-dev-121702-unauthRole",
+      "StackName": "amplify-amplifylogin-dev-121702",
+      "StackId": "arn:aws:cloudformation:us-east-1:877228122437:stack/amplify-amplifylogin-dev-121702/59e46010-c8a9-11ec-be54-0ac8c34cabd3",
+      "AmplifyAppId": "d1f2hqpkqqsd8a"
+    }
+  },
+  "auth": {
+    "amplifylogin8c421611": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifylogin-dev-121702-deployment/amplify-cfn-templates/auth/amplifylogin8c421611-cloudformation-template.json",
+        "logicalId": "authamplifylogin8c421611"
+      },
+      "lastPushTimeStamp": "2022-04-30T17:36:22.910Z",
+      "output": {
+        "UserPoolId": "us-east-1_lJbJv8i6Z",
+        "AppClientIDWeb": "56mtrnplr384426sq4t740bju8",
+        "AppClientID": "36416n7lrb1vk8gmtq1in98kj9",
+        "IdentityPoolId": "us-east-1:ee40c1a3-9f87-4a14-bace-01d9bae04f79",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:877228122437:userpool/us-east-1_lJbJv8i6Z",
+        "IdentityPoolName": "amplifylogin8c421611_identitypool_8c421611__dev",
+        "UserPoolName": "amplifylogin8c421611_userpool_8c421611"
+      },
+      "lastPushDirHash": "tWfAelc21GhJKSL6Mf/ZxU31VIk="
+    }
+  }
+}
