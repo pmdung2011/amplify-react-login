@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Auth } from 'aws-amplify'
+import '../styles/Login.scss'
 
 function Login() {
   let [email, setEmail] = useState('')
@@ -12,8 +13,11 @@ function Login() {
   }
 
   const renderForm = (
-    <div className="form">
+    <div className="form-login-container">
       <form onSubmit={handleSubmit}>
+        <div className="login-title">
+          <h2 className="title">File Transfer Login</h2>
+        </div>
         <div className="input-container">
           <label>Username </label>
           <input
@@ -45,10 +49,7 @@ function Login() {
 
   return (
     <div className="app">
-      <div className="login-form">
-        <div className="title">Sign In</div>
-        {renderForm}
-      </div>
+      <div className="login-form">{renderForm}</div>
     </div>
   )
 }

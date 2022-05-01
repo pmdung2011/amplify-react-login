@@ -17,21 +17,5 @@ export default function App() {
       setCurrentUser(event.payload.data)
     })
   })
-  return (
-    <div>
-      {/* <AmplifyProvider theme={theme}>
-        <Authenticator hideSignUp={true}>
-          {({ signOut, user }) => (
-            <main>
-              <h1>Hello {user.username}</h1>
-              <Upload />
-              <button onClick={signOut}>Sign out</button>
-            </main>
-          )}
-        </Authenticator>
-      </AmplifyProvider> */}
-
-      {currentUser ? <Upload /> : <Login />}
-    </div>
-  )
+  return <div>{currentUser ? <Upload /> : <Login />}</div>
 }
