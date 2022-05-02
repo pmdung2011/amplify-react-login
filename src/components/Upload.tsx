@@ -2,21 +2,31 @@ import React, { useState, useRef } from 'react'
 import { Auth } from 'aws-amplify'
 import '../styles/Upload.scss'
 export default function Upload(props) {
-  const [selectedFile, setSelectedFile] = useState()
+  const [selectedFiles, setSelectedFiles] = useState(undefined)
   const [isSelected, setIsSelected] = useState(false)
+  const [progressInfos, setProgressInfos] = useState({ val: [] });
   const fileInput = useRef(null)
+
   const changeHandler = event => {
-    setSelectedFile(event.target.files[0])
+    // var files = event.target.files
+    // console.log(files)
+    // var filesArr = Array.prototype.slice.call(files)
+    // console.log(typeof filesArr)
+    // var temp = [...selectedFiles, ...filesArr]
+    // setSelectedFiles(temp)
+    // console.log(selectedFiles)
+    setSelectedFiles(event.target.files);
+    setProgressInfos({ val: [] });
     setIsSelected(true)
   }
 
-  async function signOut() {
-    try {
-      await Auth.signOut()
-    } catch (error) {
-      console.log('error signing out: ', error)
-    }
-  }
+  // async function signOut() {
+  //   try {
+  //     await Auth.signOut()
+  //   } catch (error) {
+  //     console.log('error signing out: ', error)
+  //   }
+  // }
 
   const handleSubmission = () => {}
   return (

@@ -4,8 +4,8 @@ import '@aws-amplify/ui-react/styles.css'
 
 import awsExports from './aws-exports'
 
-import Upload from './components/Upload'
-import Login from './components/Login'
+import Upload from './components/Upload.tsx'
+import Login from './components/Login.tsx'
 Amplify.configure(awsExports)
 
 export default function App() {
