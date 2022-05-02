@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Auth } from 'aws-amplify'
 import '../styles/Upload.scss'
 export default function Upload(props) {
   const [selectedFile, setSelectedFile] = useState()
   const [isSelected, setIsSelected] = useState(false)
-
+  const fileInput = useRef(null)
   const changeHandler = event => {
     setSelectedFile(event.target.files[0])
     setIsSelected(true)
@@ -27,25 +27,27 @@ export default function Upload(props) {
         <h2>Upload documents</h2>
 
         <div className="input-container">
-          <label className="uploader">
+          <div className="uploader ">
             Pick from File Explorer
-            <input type="file" multiple name="file" onChange={changeHandler} />
-          </label>
-          {isSelected ? (
-            <div>
-              <p>Filename: {selectedFile.name}</p>
-              <p>Filetype: {selectedFile.type}</p>
-              <p>Size in bytes: {selectedFile.size}</p>
-              <p>
-                lastModifiedDate:{' '}
-                {selectedFile.lastModifiedDate.toLocaleDateString()}
-              </p>
-            </div>
-          ) : (
-            <p>OR</p>
-          )}
+            <input
+              type="file"
+              name="files"
+              ref={fileInput}
+              multiple
+              onChange={changeHandler}
+              style={{ display: 'none' }}
+            />
+            <button
+              className="upload-btn"
+              onClick={() => fileInput.current.click()}
+            >
+              Select
+            </button>
+          </div>
 
-          <button className="button-container" onClick={handleSubmission}>
+          <p>OR</p>
+
+          <button className="button-drag-drop" onClick={handleSubmission}>
             Drag and Drop
           </button>
           {/* <button onClick={signOut}>Sign out</button> */}

@@ -33,7 +33,15 @@
       padding-left: 1rem;
       max-width: 15rem;
 
-      .button-container {
+      .uploader {
+        display: flex;
+        column-gap: 9px;
+        .upload-btn {
+          box-shadow: 2px 4px #070707;
+        }
+      }
+
+      .button-drag-drop {
         display: block;
         width: 100%;
       }
