@@ -14,7 +14,8 @@ export default function App() {
   useEffect(() => {
     Hub.listen('auth', event => {
       console.log('auth event', event)
-      setCurrentUser(event.payload.data)
+      console.log('user: ', event.payload.data)
+      setCurrentUser(event.payload.data.username)
     })
   })
   return <div>{currentUser ? <Upload /> : <Login />}</div>
