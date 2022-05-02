@@ -13,9 +13,13 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState()
   useEffect(() => {
     Hub.listen('auth', event => {
-      console.log('auth event', event)
-      console.log('user: ', event.payload.data)
-      setCurrentUser(event.payload.data.username)
+      // console.log('auth event', event)
+      // console.log('user: ', event.payload.data)
+      if (!event.payload.data.username) {
+        alert('User not found!')
+      } else {
+        setCurrentUser(event.payload.data.username)
+      }
     })
   })
   return <div>{currentUser ? <Upload /> : <Login />}</div>

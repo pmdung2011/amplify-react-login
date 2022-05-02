@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Auth } from 'aws-amplify'
+
+import Login from './Login'
 export default function Upload() {
   const [selectedFile, setSelectedFile] = useState()
   const [isSelected, setIsSelected] = useState(false)
@@ -13,6 +15,13 @@ export default function Upload() {
   async function signOut() {
     try {
       await Auth.signOut()
+      return (
+        <Router>
+          <Routes>
+            <Route exact path="/login" component={<Login />} />
+          </Routes>
+        </Router>
+      )
     } catch (error) {
       console.log('error signing out: ', error)
     }
