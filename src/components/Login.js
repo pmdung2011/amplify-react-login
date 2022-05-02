@@ -42,7 +42,7 @@ function Login() {
           />
         </div>
         <div className="button-container">
-          <input type="submit" />
+          <input type="submit" className="submit-button" />
         </div>
       </form>
     </div>
