@@ -21,7 +21,8 @@ export default function Upload(props) {
   const handleSubmission = () => {}
   return (
     <div className="container">
-      <div className="upload-form">
+      <fieldset className="upload-form">
+        <legend>sftp.stfu.com</legend>
         <div className="logo">&nbsp;</div>
         <h2>Upload documents</h2>
 
@@ -49,7 +50,7 @@ export default function Upload(props) {
           </button>
           {/* <button onClick={signOut}>Sign out</button> */}
         </div>
-      </div>
+      </fieldset>
     </div>
   )
 }
