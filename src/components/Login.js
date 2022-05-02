@@ -48,11 +48,7 @@ function Login() {
     </div>
   )
 
-  return (
-    <div className="app">
-      <div className="login-form">{renderForm}</div>
-    </div>
-  )
+  return <div className="app">{renderForm}</div>
 }
 
 export default Login
