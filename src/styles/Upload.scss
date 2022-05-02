@@ -41,6 +41,14 @@
         }
       }
 
+      .selected-files {
+        border: solid 3px black;
+        position: absolute;
+        z-index: 2;
+        width: 35rem;
+        height: 30rem;
+      }
+
       .button-drag-drop {
         display: block;
         width: 100%;

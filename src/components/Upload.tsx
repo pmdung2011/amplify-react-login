@@ -1,22 +1,24 @@
 import React, { useState, useRef } from 'react'
 import { Auth } from 'aws-amplify'
+
+import Content from '../components/Content'
 import '../styles/Upload.scss'
 export default function Upload(props) {
-  const [selectedFiles, setSelectedFiles] = useState(undefined)
+  const [selectedFiles, setSelectedFiles] = useState({
+    files: [],
+  })
   const [isSelected, setIsSelected] = useState(false)
-  const [progressInfos, setProgressInfos] = useState({ val: [] });
+
   const fileInput = useRef(null)
 
-  const changeHandler = event => {
-    // var files = event.target.files
-    // console.log(files)
-    // var filesArr = Array.prototype.slice.call(files)
-    // console.log(typeof filesArr)
-    // var temp = [...selectedFiles, ...filesArr]
-    // setSelectedFiles(temp)
-    // console.log(selectedFiles)
-    setSelectedFiles(event.target.files);
-    setProgressInfos({ val: [] });
+  
+
+  const changeHandler = (event: { target: { files: any } }) => {
+    var files = event.target.files
+    console.log(files)
+    var filesArr = Array.prototype.slice.call(files)
+    console.log(filesArr.length)
+    setSelectedFiles({ files: [ ...filesArr] });
     setIsSelected(true)
   }
 
@@ -55,6 +57,15 @@ export default function Upload(props) {
             </button>
           </div>
 
+          {isSelected && <Content content={selectedFiles}/>}
+          {/* <div className="selected-files">
+            <ul>
+              {selectedFiles?.files.map((file: any, index:any) => 
+              (<li key={index}>
+                {file.name}
+              </li>))}
+            </ul>
+          </div> */}
           <p>OR</p>
 
           <button className="button-drag-drop" onClick={handleSubmission}>
@@ -63,6 +74,8 @@ export default function Upload(props) {
           {/* <button onClick={signOut}>Sign out</button> */}
         </div>
       </fieldset>
+
+      
     </div>
   )
 }
