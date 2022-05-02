@@ -1,6 +1,5 @@
 import Amplify, { Hub } from 'aws-amplify'
 import { useState, useEffect } from 'react'
-
 import '@aws-amplify/ui-react/styles.css'
 
 import awsExports from './aws-exports'
@@ -14,14 +13,8 @@ export default function App() {
 
   useEffect(() => {
     Hub.listen('auth', event => {
-      // console.log('auth event', event)
-      // console.log('user: ', event.payload.data)
-      if (!event.payload.data.username) {
-        alert('User not found!')
-      } else {
-        setCurrentUser(event.payload.data.username)
-      }
+      setCurrentUser(event.payload.data.username)
     })
   })
-  return <div>{currentUser ? <Upload /> : <Login />}</div>
+  return <div>{currentUser ? <Upload user={currentUser} /> : <Login />}</div>
 }

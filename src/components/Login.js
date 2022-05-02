@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { Auth } from 'aws-amplify'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/Login.scss'
 
 function Login() {
@@ -8,14 +11,27 @@ function Login() {
 
   let handleSubmit = async function (event) {
     event.preventDefault()
-    let response = await Auth.signIn(email, password)
-    console.log('auth response: ', response)
+    try {
+      const user = await Auth.signIn(email, password)
+      console.log(user)
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+      console.log('error signing in', error)
+    }
   }
 
   const renderForm = (
     <div className="container">
       <form onSubmit={handleSubmit} className="login-form">
-        <div class="logo">&nbsp;</div>
+        <div className="logo">&nbsp;</div>
         <div className="input-form-container">
           <div className="login-title">
             <h2 className="title">File Transfer Login</h2>
@@ -50,7 +66,12 @@ function Login() {
     </div>
   )
 
-  return <div className="app">{renderForm}</div>
+  return (
+    <div className="app">
+      {renderForm}
+      <ToastContainer />
+    </div>
+  )
 }
 
 export default Login
