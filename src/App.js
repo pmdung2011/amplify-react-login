@@ -11,6 +11,7 @@ Amplify.configure(awsExports)
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState()
+
   useEffect(() => {
     Hub.listen('auth', event => {
       // console.log('auth event', event)
