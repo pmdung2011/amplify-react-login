@@ -14,7 +14,8 @@ function Login() {
 
   const renderForm = (
     <div className="form-login-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div class="logo">&nbsp;</div>
         <div className="login-title">
           <h2 className="title">File Transfer Login</h2>
         </div>
