@@ -1,15 +1,22 @@
 import React, { useState, useRef } from 'react'
-import { Auth } from 'aws-amplify'
 
 import Content from '../components/Content'
 import '../styles/Upload.scss'
 export default function Upload(props) {
-  const [selectedFiles, setSelectedFiles] = useState({
-    files: [],
-  })
+  const initialStateFiles = { files: [] }
+  const [selectedFiles, setSelectedFiles] = useState(initialStateFiles)
 
   const [modalOpen, setModalOpen] = useState(false)
   const fileInput = useRef(null)
+
+  const clearStateFiles = () => {
+    setSelectedFiles({ ...initialStateFiles })
+  }
+
+  const clear = props => {
+    setModalOpen(props)
+    clearStateFiles()
+  }
 
   const changeHandler = (event: { target: { files: any } }) => {
     var files = event.target.files
@@ -19,14 +26,6 @@ export default function Upload(props) {
     setSelectedFiles({ files: [...filesArr] })
     setModalOpen(true)
   }
-
-  // async function signOut() {
-  //   try {
-  //     await Auth.signOut()
-  //   } catch (error) {
-  //     console.log('error signing out: ', error)
-  //   }
-  // }
 
   const handleSubmission = () => {}
   return (
@@ -59,7 +58,7 @@ export default function Upload(props) {
             {modalOpen && (
               <Content content={selectedFiles} setOpenModal={setModalOpen} />
             )}
-            <p>OR</p>
+            <p className="mid-text">OR</p>
 
             <button className="button-drag-drop" onClick={handleSubmission}>
               Drag and drop

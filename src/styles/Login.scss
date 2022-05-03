@@ -32,9 +32,9 @@
     .input-form-container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding-right: 10rem;
-      padding-left: 6rem;
+      margin: auto;
+      width: 50%;
+      margin-right: 21rem;
       .login-title {
         display: flex;
         justify-content: flex-end;
@@ -48,10 +48,11 @@
         display: flex;
         flex-direction: row;
         margin-bottom: 10px;
-        column-gap: 15px;
+        column-gap: 5px;
 
         label {
           flex: 2;
+          padding-left: 8rem;
         }
         input {
           flex: 5;
