@@ -4,14 +4,15 @@
   align-items: center;
   min-height: 100vh;
   padding: 10px;
+  font-weight: bold;
 
   .upload-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: auto;
-    height: 22rem;
-    width: 44rem;
+    height: 33rem;
+    width: 66rem;
     padding-left: 2rem;
     padding-right: 2rem;
     padding-bottom: 2rem;
@@ -25,34 +26,47 @@
       background-image: url('../styles/logo.jpg');
       background-repeat: no-repeat;
       position: absolute;
-      top: -13px;
+      top: -30px;
       left: -129px;
     }
 
-    .input-container {
-      padding-left: 1rem;
-      max-width: 15rem;
-      position: relative;
+    .uploader-container {
+      padding-bottom: 9rem;
 
-      .uploader {
-        display: flex;
-        column-gap: 9px;
-        .upload-btn {
-          box-shadow: 2px 4px #070707;
+      h2 {
+        font-size: 29px;
+      }
+      .input-container {
+        padding-left: 1rem;
+        max-width: 18rem;
+        position: relative;
+
+        .uploader {
+          display: flex;
+          column-gap: 5px;
+          .upload-btn {
+            box-shadow: 2px 4px #070707;
+            max-width: 6rem;
+            max-height: 30px;
+          }
         }
-      }
+        p {
+          text-align: center;
+        }
 
-      .selected-files {
-        border: solid 3px black;
-        position: absolute;
-        z-index: 2;
-        width: 35rem;
-        height: 30rem;
-      }
+        .selected-files {
+          border: solid 3px black;
+          position: absolute;
+          z-index: 2;
+          width: 35rem;
+          height: 30rem;
+        }
 
-      .button-drag-drop {
-        display: block;
-        width: 100%;
+        .button-drag-drop {
+          display: block;
+          width: 100%;
+          max-height: 49px;
+        }
       }
     }
   }
