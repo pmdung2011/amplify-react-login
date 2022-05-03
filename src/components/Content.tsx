@@ -24,6 +24,10 @@ function Content(props: any) {
             ))}
           </ul>
         </div>
+
+        <div className="footer">
+          <button>Upload</button>
+        </div>
       </div>
     </div>
   )

@@ -3,28 +3,28 @@ import React, { useState, useRef } from 'react'
 import Content from '../components/Content'
 import '../styles/Upload.scss'
 export default function Upload(props) {
+  //props is passed for future use
   const initialStateFiles = { files: [] }
   const [selectedFiles, setSelectedFiles] = useState(initialStateFiles)
 
   const [modalOpen, setModalOpen] = useState(false)
   const fileInput = useRef(null)
 
-  const clearStateFiles = () => {
-    setSelectedFiles({ ...initialStateFiles })
-  }
+  console.log(selectedFiles)
+  console.log(modalOpen)
 
-  const clear = props => {
-    setModalOpen(props)
-    clearStateFiles()
+  const closeModal = () => {
+    setModalOpen(false)
+    setSelectedFiles(initialStateFiles) // reset selected files
   }
 
   const changeHandler = (event: { target: { files: any } }) => {
     var files = event.target.files
     console.log(files)
     var filesArr = Array.prototype.slice.call(files)
-    console.log(filesArr.length)
-    setSelectedFiles({ files: [...filesArr] })
+    setSelectedFiles({ files: filesArr })
     setModalOpen(true)
+    fileInput.current.value = null // reset file input to re-render when selecting same file
   }
 
   const handleSubmission = () => {}
@@ -49,14 +49,14 @@ export default function Upload(props) {
                 style={{ display: 'none' }}
               />
               <button
-                className="upload-btn"
+                className="select-btn"
                 onClick={() => fileInput.current.click()}
               >
                 Select
               </button>
             </div>
             {modalOpen && (
-              <Content content={selectedFiles} setOpenModal={setModalOpen} />
+              <Content content={selectedFiles} setOpenModal={closeModal} />
             )}
             <p className="mid-text">OR</p>
 
