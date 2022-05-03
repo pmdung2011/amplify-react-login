@@ -7,8 +7,8 @@ export default function Upload(props) {
   const [selectedFiles, setSelectedFiles] = useState({
     files: [],
   })
-  const [isSelected, setIsSelected] = useState(false)
-
+  
+  const [modalOpen, setModalOpen] = useState(false);
   const fileInput = useRef(null)
 
   
@@ -19,7 +19,7 @@ export default function Upload(props) {
     var filesArr = Array.prototype.slice.call(files)
     console.log(filesArr.length)
     setSelectedFiles({ files: [ ...filesArr] });
-    setIsSelected(true)
+    setModalOpen(true);
   }
 
   // async function signOut() {
@@ -56,16 +56,7 @@ export default function Upload(props) {
               Select
             </button>
           </div>
-
-          {isSelected && <Content content={selectedFiles}/>}
-          {/* <div className="selected-files">
-            <ul>
-              {selectedFiles?.files.map((file: any, index:any) => 
-              (<li key={index}>
-                {file.name}
-              </li>))}
-            </ul>
-          </div> */}
+          {modalOpen  && <Content content={selectedFiles} setOpenModal={setModalOpen}/>}
           <p>OR</p>
 
           <button className="button-drag-drop" onClick={handleSubmission}>
@@ -73,6 +64,7 @@ export default function Upload(props) {
           </button>
           {/* <button onClick={signOut}>Sign out</button> */}
         </div>
+        
       </fieldset>
 
       
