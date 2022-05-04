@@ -1,5 +1,4 @@
 import React from 'react'
-import ProgressBar from 'react-bootstrap/ProgressBar'
 
 import '../styles/Content.scss'
 
@@ -22,9 +21,6 @@ function Content(props: any) {
             {props.content?.files.map((file: any, index: any) => (
               <li key={index}>
                 <p className="file-name">{file.name}</p>
-                <p className="progress-bar">
-                  <ProgressBar variant="success" now={40} />
-                </p>
               </li>
             ))}
           </ul>
