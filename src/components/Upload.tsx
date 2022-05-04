@@ -17,6 +17,11 @@ export default function Upload(props) {
     setSelectedFiles(initialStateFiles) // reset selected files
   }
 
+  //Validate file type and file size here
+  const getPdfType = (file: any) => {
+    return file.type === 'application/pdf'
+  }
+
   const changeHandler = (event: { target: { files: any } }) => {
     var files = event.target.files
     if (!files) {
@@ -25,12 +30,8 @@ export default function Upload(props) {
     var filesArr = Array.prototype.slice.call(files)
     console.log('Selected files:', filesArr)
 
-    const getPdfType = (file: any) => {
-      return file.type === 'application/pdf'
-    }
-    //Validate file type and file size here
     filesArr = filesArr.filter(getPdfType)
-    console.log(filesArr)
+    console.log('Selected files after validated: ', filesArr)
     setSelectedFiles({ files: filesArr })
     setModalOpen(true)
     fileInput.current.value = null // reset file input to re-render when selecting same file
