@@ -10,8 +10,7 @@ export default function Upload(props) {
   const [modalOpen, setModalOpen] = useState(false)
   const fileInput = useRef(null)
 
-  console.log(selectedFiles)
-  console.log(modalOpen)
+  // console.log(selectedFiles)
 
   const closeModal = () => {
     setModalOpen(false)
@@ -20,8 +19,18 @@ export default function Upload(props) {
 
   const changeHandler = (event: { target: { files: any } }) => {
     var files = event.target.files
-    console.log(files)
+    if (!files) {
+      return
+    }
     var filesArr = Array.prototype.slice.call(files)
+    console.log('Selected files:', filesArr)
+
+    const getPdfType = (file: any) => {
+      return file.type === 'application/pdf'
+    }
+    //Validate file type and file size here
+    filesArr = filesArr.filter(getPdfType)
+    console.log(filesArr)
     setSelectedFiles({ files: filesArr })
     setModalOpen(true)
     fileInput.current.value = null // reset file input to re-render when selecting same file

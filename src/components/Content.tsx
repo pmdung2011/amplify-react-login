@@ -3,7 +3,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import '../styles/Content.scss'
 
 function Content(props: any) {
-  console.log(props.content.files)
+  // console.log(props.content.files)
   return (
     <div className="modal">
       <div className="modalContainer">
