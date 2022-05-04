@@ -5,6 +5,11 @@
   min-height: 100vh;
   padding: 10px;
 
+  fieldset,
+  legend {
+    all: revert;
+  }
+
   .login-form {
     display: flex;
     flex-direction: column;

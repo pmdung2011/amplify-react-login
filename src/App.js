@@ -1,7 +1,7 @@
 import Amplify, { Hub } from 'aws-amplify'
 import { useState, useEffect } from 'react'
 import '@aws-amplify/ui-react/styles.css'
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 import awsExports from './aws-exports'
 
 import Upload from './components/Upload.tsx'

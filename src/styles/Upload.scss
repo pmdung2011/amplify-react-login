@@ -6,6 +6,11 @@
   padding: 10px;
   font-weight: bold;
 
+  fieldset,
+  legend {
+    all: revert;
+  }
+
   button {
     border: 3px solid black;
   }
