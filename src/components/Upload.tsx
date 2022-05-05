@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-
+import { ToastContainer, toast } from 'react-toastify'
 import Content from '../components/Content'
 import '../styles/Upload.scss'
 export default function Upload(props) {
@@ -15,6 +15,18 @@ export default function Upload(props) {
   const closeModal = () => {
     setModalOpen(false)
     setSelectedFiles(initialStateFiles) // reset selected files
+  }
+
+  const handleUpload = () => {
+    toast.success('File Upload Successful', {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
   }
 
   //Validate file type and file size here
@@ -66,7 +78,11 @@ export default function Upload(props) {
               </button>
             </div>
             {modalOpen && (
-              <Content content={selectedFiles} setOpenModal={closeModal} />
+              <Content
+                content={selectedFiles}
+                setOpenModal={closeModal}
+                handleUpload={handleUpload}
+              />
             )}
             <p className="mid-text">OR</p>
 
@@ -75,6 +91,9 @@ export default function Upload(props) {
             </button>
             {/* <button onClick={signOut}>Sign out</button> */}
           </div>
+        </div>
+        <div className="upload-status">
+          <ToastContainer />
         </div>
       </fieldset>
     </div>

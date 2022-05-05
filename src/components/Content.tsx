@@ -1,9 +1,11 @@
 import React from 'react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+
 import '../styles/Content.scss'
 
 function Content(props: any) {
   // console.log(props.content.files)
+
   return (
     <div className="modal">
       <div className="modalContainer">
@@ -28,7 +30,7 @@ function Content(props: any) {
         </div>
 
         <div className="footer">
-          <button>Upload</button>
+          <button onClick={props.handleUpload}>Upload</button>
         </div>
       </div>
     </div>
