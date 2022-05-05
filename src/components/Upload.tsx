@@ -17,7 +17,7 @@ export default function Upload(props) {
     setSelectedFiles(initialStateFiles) // reset selected files
   }
 
-  const handleUpload = e => {
+  const handleUpload = (e: { preventDefault: () => void }) => {
     e.preventDefault() //prevent the form from submitting
 
     toast.success('File Upload Successful', {
