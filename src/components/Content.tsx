@@ -1,10 +1,20 @@
 import React from 'react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
+// import uploadService from '../services/upload-files.service'
 import '../styles/Content.scss'
 
 function Content(props: any) {
-  // console.log(props.content.files)
+  const [progress, setProgress] = React.useState(0)
+
+  //Invoke upload service to s3 file by file
+  const handleUpload = () => {
+    for (let i = 0; i < props.content.files.length; i++) {
+      console.log('Uploading file: ', props.content.files[i])
+      // const file = props.content.files[i]
+      // uploadService(file)
+    }
+  }
 
   return (
     <div className="modal">
@@ -30,7 +40,7 @@ function Content(props: any) {
         </div>
 
         <div className="footer">
-          <button onClick={props.handleUpload}>Upload</button>
+          <button onClick={handleUpload}>Upload</button>
         </div>
       </div>
     </div>

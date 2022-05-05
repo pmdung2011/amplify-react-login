@@ -17,7 +17,9 @@ export default function Upload(props) {
     setSelectedFiles(initialStateFiles) // reset selected files
   }
 
-  const handleUpload = () => {
+  const handleUpload = e => {
+    e.preventDefault() //prevent the form from submitting
+
     toast.success('File Upload Successful', {
       position: 'bottom-right',
       autoClose: 5000,
@@ -34,7 +36,7 @@ export default function Upload(props) {
     return file.type === 'application/pdf'
   }
 
-  const changeHandler = (event: { target: { files: any } }) => {
+  const handleSelect = (event: { target: { files: any } }) => {
     var files = event.target.files
     if (!files) {
       return
@@ -42,6 +44,7 @@ export default function Upload(props) {
     var filesArr = Array.prototype.slice.call(files)
     console.log('Selected files:', filesArr)
 
+    //Retrieve only pdf files
     filesArr = filesArr.filter(getPdfType)
     console.log('Selected files after validated: ', filesArr)
     setSelectedFiles({ files: filesArr })
@@ -49,7 +52,9 @@ export default function Upload(props) {
     fileInput.current.value = null // reset file input to re-render when selecting same file
   }
 
-  const handleSubmission = () => {}
+  const handleDragDrop = () => {}
+
+  //Render Upload component
   return (
     <div className="container">
       <fieldset className="upload-form">
@@ -67,7 +72,7 @@ export default function Upload(props) {
                 name="files"
                 ref={fileInput}
                 multiple
-                onChange={changeHandler}
+                onChange={handleSelect}
                 style={{ display: 'none' }}
               />
               <button
@@ -86,7 +91,7 @@ export default function Upload(props) {
             )}
             <p className="mid-text">OR</p>
 
-            <button className="button-drag-drop" onClick={handleSubmission}>
+            <button className="button-drag-drop" onClick={handleDragDrop}>
               Drag and drop
             </button>
             {/* <button onClick={signOut}>Sign out</button> */}
