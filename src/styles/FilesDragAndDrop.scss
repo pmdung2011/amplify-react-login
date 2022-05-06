@@ -1,4 +1,4 @@
-.FilesDragAndDrop__area {
+.drop-area {
   width: 300px;
   height: 200px;
   padding: 50px;
@@ -10,9 +10,9 @@
   color: #555555;
   border: 2px #c3c3c3 dashed;
   border-radius: 12px;
+}
 
-  .area__icon {
-    font-size: 64px;
-    margin-top: 20px;
-  }
+.drop-area:hover,
+.drop-area.dragover {
+  opacity: 0.6;
 }

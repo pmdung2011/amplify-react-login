@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
-import { useDropzone } from 'react-dropzone'
 
 import Content from '../components/Content'
 import DragnDrop from '../components/FilesDragAndDrop'
@@ -12,10 +11,6 @@ export default function Upload(props) {
 
   const [modalOpen, setModalOpen] = useState(false)
   const fileInput = useRef(null)
-
-  const onUpload = files => {
-    console.log(files)
-  }
 
   const closeModal = () => {
     setModalOpen(false)
@@ -57,8 +52,6 @@ export default function Upload(props) {
     fileInput.current.value = null // reset file input to re-render when selecting same file
   }
 
-  const handleDragDrop = () => {}
-
   //Render Upload component
   return (
     <div className="container">
@@ -96,7 +89,7 @@ export default function Upload(props) {
             )}
             <p className="mid-text">OR</p>
 
-            <DragnDrop onUpload={onUpload} />
+            <DragnDrop />
             {/* <button onClick={signOut}>Sign out</button> */}
           </div>
         </div>
