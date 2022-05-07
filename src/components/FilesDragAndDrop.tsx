@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
 
@@ -9,7 +9,7 @@ const FilesDragAndDrop = ({ onFileChange }) => {
   const drag = React.useRef(null)
   const [dragging, setDragging] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     wrapperRef.current.addEventListener('dragover', dragOver)
     wrapperRef.current.addEventListener('dragenter', dragEnter)
     wrapperRef.current.addEventListener('dragleave', dragLeave)
@@ -23,12 +23,19 @@ const FilesDragAndDrop = ({ onFileChange }) => {
     }
   }, [])
 
-  const dragOver = e => {
+  const dragOver = (e: {
+    preventDefault: () => void
+    stopPropagation: () => void
+  }) => {
     e.preventDefault()
     e.stopPropagation()
   }
 
-  const dragEnter = e => {
+  const dragEnter = (e: {
+    preventDefault: () => void
+    stopPropagation: () => void
+    target: any
+  }) => {
     e.preventDefault()
     e.stopPropagation()
 
@@ -37,7 +44,11 @@ const FilesDragAndDrop = ({ onFileChange }) => {
     }
   }
 
-  const dragLeave = e => {
+  const dragLeave = (e: {
+    preventDefault: () => void
+    stopPropagation: () => void
+    target: any
+  }) => {
     e.preventDefault()
     e.stopPropagation()
 
@@ -50,7 +61,11 @@ const FilesDragAndDrop = ({ onFileChange }) => {
     return file.type === 'application/pdf'
   }
 
-  const handleDrop = e => {
+  const handleDrop = (e: {
+    preventDefault: () => void
+    stopPropagation: () => void
+    dataTransfer: { files: any }
+  }) => {
     e.preventDefault()
     e.stopPropagation()
     setDragging(false)
