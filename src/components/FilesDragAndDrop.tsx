@@ -3,54 +3,98 @@ import PropTypes from 'prop-types'
 
 import '../styles/FilesDragAndDrop.scss'
 
-const FilesDragAndDrop = props => {
+const FilesDragAndDrop = ({ onFileChange }) => {
   const wrapperRef = useRef(null)
-
+  const drag = React.useRef(null)
+  const [dragging, setDragging] = useState(false)
   const [fileList, setFileList] = useState([])
 
-  const onDragEnter = () => wrapperRef.current.classList.add('dragover')
+  React.useEffect(() => {
+    wrapperRef.current.addEventListener('dragover', dragOver)
+    wrapperRef.current.addEventListener('dragenter', dragEnter)
+    wrapperRef.current.addEventListener('dragleave', dragLeave)
+    wrapperRef.current.addEventListener('drop', handleDrop)
 
-  const onDragLeave = () => wrapperRef.current.classList.remove('dragover')
+    return () => {
+      wrapperRef.current.removeEventListener('dragover', dragOver)
+      wrapperRef.current.removeEventListener('dragenter', dragEnter)
+      wrapperRef.current.removeEventListener('dragleave', dragLeave)
+      wrapperRef.current.removeEventListener('drop', handleDrop)
+    }
+  }, [])
 
-  const onDrop = () => wrapperRef.current.classList.remove('dragover')
+  const dragOver = e => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
 
-  const onFileDrop = e => {
-    const newFile = e.target.files[0]
-    if (newFile) {
-      const updatedList = [...fileList, newFile]
-      setFileList(updatedList)
-      props.onFileChange(updatedList)
+  const dragEnter = e => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (e.target !== drag.current) {
+      setDragging(true)
     }
   }
 
-  const fileRemove = file => {
+  const dragLeave = e => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (e.target === drag.current) {
+      setDragging(false)
+    }
+  }
+
+  const getPdfType = (file: any) => {
+    return file.type === 'application/pdf'
+  }
+
+  const handleDrop = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragging(false)
+    // this is required to convert FileList object to array
+    let files = [...e.dataTransfer.files]
+
+    // check if some uploaded file is not in one of the allowed formats
+    const isNotValidateFormat = files.find(
+      file => file.type !== 'application/pdf'
+    )
+
+    if (isNotValidateFormat) {
+      console.log('Only pdf files are allowed!!!')
+    }
+
+    if (files && files.length) {
+      files = files.filter(getPdfType)
+      onFileChange(files)
+    }
+  }
+
+  const fileRemove = (file: any) => {
     const updatedList = [...fileList]
     updatedList.splice(fileList.indexOf(file), 1)
     setFileList(updatedList)
-    props.onFileChange(updatedList)
+    onFileChange(updatedList)
   }
 
   return (
-    <div
-      ref={wrapperRef}
-      className="drop-area"
-      onDragEnter={onDragEnter}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-    >
-      Drag and Drop
-      <input
-        type="file"
-        multiple
-        style={{ display: 'none' }}
-        onChange={onFileDrop}
-      />
-    </div>
+    <React.Fragment>
+      <div ref={wrapperRef} className="drop-area">
+        {dragging && (
+          <div ref={drag} className="dnd-animation">
+            Drop files here
+          </div>
+        )}
+        <span className="dnd-title">Drag and Drop</span>
+      </div>
+    </React.Fragment>
   )
 }
 
 FilesDragAndDrop.propTypes = {
-  onFileChange: PropTypes.func,
+  onFileChange: PropTypes.func.isRequired,
 }
 
 export default FilesDragAndDrop

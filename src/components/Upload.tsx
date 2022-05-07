@@ -51,7 +51,11 @@ export default function Upload(props) {
     setModalOpen(true)
     fileInput.current.value = null // reset file input to re-render when selecting same file
   }
-
+  const onFileChange = (filesProp: any) => {
+    console.log(filesProp)
+    setSelectedFiles({ files: filesProp })
+    setModalOpen(true)
+  }
   //Render Upload component
   return (
     <div className="container">
@@ -80,7 +84,7 @@ export default function Upload(props) {
                 Select
               </button>
             </div>
-            {modalOpen && (
+            {modalOpen && selectedFiles.files.length > 0 && (
               <Content
                 content={selectedFiles}
                 setOpenModal={closeModal}
@@ -89,8 +93,7 @@ export default function Upload(props) {
             )}
             <p className="mid-text">OR</p>
 
-            <DragnDrop />
-            {/* <button onClick={signOut}>Sign out</button> */}
+            <DragnDrop onFileChange={onFileChange} />
           </div>
         </div>
         <div className="upload-status">
