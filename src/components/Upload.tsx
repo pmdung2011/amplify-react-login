@@ -70,8 +70,10 @@ export default function Upload(props) {
   }
   const onFileChange = (filesProp: any) => {
     console.log(filesProp)
-    setSelectedFiles({ files: filesProp })
-    setModalOpen(true)
+    if (filesProp.length > 0) {
+      setSelectedFiles({ files: filesProp })
+      setModalOpen(true)
+    }
   }
   //Render Upload component
   return (
