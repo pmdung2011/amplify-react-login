@@ -8,7 +8,6 @@ const FilesDragAndDrop = ({ onFileChange }) => {
   const wrapperRef = useRef(null)
   const drag = React.useRef(null)
   const [dragging, setDragging] = useState(false)
-  const [fileList, setFileList] = useState([])
 
   React.useEffect(() => {
     wrapperRef.current.addEventListener('dragover', dragOver)
