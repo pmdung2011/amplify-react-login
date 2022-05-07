@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
+import { Auth } from 'aws-amplify'
 
 import Content from '../components/Content'
 import DragnDrop from '../components/FilesDragAndDrop'
@@ -16,6 +17,15 @@ export default function Upload(props) {
     setModalOpen(false)
     setSelectedFiles(initialStateFiles) // reset selected files
   }
+
+  // async function signOut() {
+  //   try {
+  //     await Auth.signOut()
+  //     window.location.reload()
+  //   } catch (error) {
+  //     console.log('error signing out: ', error)
+  //   }
+  // }
 
   const handleUpload = (e: { preventDefault: () => void }) => {
     e.preventDefault() //prevent the form from submitting
