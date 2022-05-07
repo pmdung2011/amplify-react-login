@@ -7,12 +7,19 @@ import '../styles/Content.scss'
 function Content(props: any) {
   const [progress, setProgress] = React.useState(0)
 
-  //Invoke upload service to s3 file by file
+  //Invoke upload service file by file
   const handleUpload = () => {
     for (let i = 0; i < props.content.files.length; i++) {
       // const file = props.content.files[i]
       uploadService(props.content.files[i])
     }
+  }
+
+  const fileRemove = (file: any) => {
+    // const updatedList = [...fileList]
+    // updatedList.splice(fileList.indexOf(file), 1)
+    // setFileList(updatedList)
+    // onFileChange(updatedList)
   }
 
   return (

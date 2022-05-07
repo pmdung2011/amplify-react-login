@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
+import { ToastContainer, toast } from 'react-toastify'
 
 import '../styles/FilesDragAndDrop.scss'
 
@@ -64,6 +65,15 @@ const FilesDragAndDrop = ({ onFileChange }) => {
 
     if (isNotValidateFormat) {
       console.log('Only pdf files are allowed!!!')
+      toast.warn('Only pdf files are allowed!!!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
 
     if (files && files.length) {
@@ -72,15 +82,9 @@ const FilesDragAndDrop = ({ onFileChange }) => {
     }
   }
 
-  const fileRemove = (file: any) => {
-    const updatedList = [...fileList]
-    updatedList.splice(fileList.indexOf(file), 1)
-    setFileList(updatedList)
-    onFileChange(updatedList)
-  }
-
   return (
     <React.Fragment>
+      <ToastContainer />
       <div ref={wrapperRef} className="drop-area">
         {dragging && (
           <div ref={drag} className="dnd-animation">

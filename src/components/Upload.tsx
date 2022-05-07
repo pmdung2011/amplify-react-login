@@ -44,6 +44,23 @@ export default function Upload(props) {
     var filesArr = Array.prototype.slice.call(files)
     console.log('Selected files:', filesArr)
 
+    const isNotValidateFormat = filesArr.find(
+      file => file.type !== 'application/pdf'
+    )
+
+    if (isNotValidateFormat) {
+      console.log('Only pdf files are allowed!!!')
+      toast.warn('Only pdf files are allowed!!!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+
     //Retrieve only pdf files
     filesArr = filesArr.filter(getPdfType)
     console.log('Selected files after validated: ', filesArr)
