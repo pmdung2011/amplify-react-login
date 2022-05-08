@@ -1,17 +1,19 @@
 import React from 'react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
-import uploadService from '../services/upload-files.service'
+import UploadService from '../services/FileUploadService'
 import '../styles/Content.scss'
 
 function Content(props: any) {
   const [progress, setProgress] = React.useState(0)
+  const listFiles = props.content.files
 
   //Invoke upload service file by file
-  const handleUpload = () => {
+  const handleUpload = e => {
+    e.preventDefault() //prevent the form from submitting
+
     for (let i = 0; i < props.content.files.length; i++) {
       // const file = props.content.files[i]
-      uploadService(props.content.files[i])
     }
   }
 
