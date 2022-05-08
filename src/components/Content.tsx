@@ -3,7 +3,6 @@ import axios from 'axios'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { ToastContainer, toast } from 'react-toastify'
 
-import UploadService from '../services/FileUploadService'
 import getSignedUrl from '../services/GetPresignedURL'
 import '../styles/Content.scss'
 
@@ -51,6 +50,7 @@ function Content(props: any) {
     console.log('File removed:', file)
     props.content.files.splice(props.content.files.indexOf(file), 1)
   }
+  const now = progress
 
   return (
     <div className="modal">
@@ -70,7 +70,7 @@ function Content(props: any) {
             {props.content?.files.map((file: any, index: any) => (
               <li key={index} className="file-item">
                 <div className="file-name">{file.name}</div>
-                <ProgressBar variant="success" now={progress} />
+                <ProgressBar variant="success" now={now} label={`${now}%`} />
               </li>
             ))}
           </ul>
