@@ -27,24 +27,12 @@ export default function Upload(props) {
   //   }
   // }
 
-  const handleUpload = (e: { preventDefault: () => void }) => {
-    e.preventDefault() //prevent the form from submitting
-
-    toast.success('File Upload Successful', {
-      position: 'bottom-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
-
-  //Validate file type and file size here
+  //Validate file type
   const getPdfType = (file: any) => {
     return file.type === 'application/pdf'
   }
+
+  var numbers = /^[0-9]+$/
 
   const handleSelect = (event: { target: { files: any } }) => {
     var files = event.target.files
@@ -58,9 +46,26 @@ export default function Upload(props) {
       (file: { type: string }) => file.type !== 'application/pdf'
     )
 
+    const isValidateFileName = filesArr.find((file: { name: string }) =>
+      file.name.match(numbers)
+    )
+
     if (isNotValidateFormat) {
       console.log('Only pdf files are allowed!!!')
       toast.warn('Only pdf files are allowed!!!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+
+    if (!isValidateFileName) {
+      console.log('Not valid file name')
+      toast.warn('Not valid file name!!!', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -78,6 +83,8 @@ export default function Upload(props) {
     setModalOpen(true)
     fileInput.current.value = null // reset file input to re-render when selecting same file
   }
+
+  //Drag and Drop selecting files
   const onFileChange = (filesProp: any) => {
     console.log(filesProp)
     if (filesProp.length > 0) {
@@ -114,11 +121,7 @@ export default function Upload(props) {
               </button>
             </div>
             {modalOpen && selectedFiles.files.length > 0 && (
-              <Content
-                content={selectedFiles}
-                setOpenModal={closeModal}
-                handleUpload={handleUpload}
-              />
+              <Content content={selectedFiles} setOpenModal={closeModal} />
             )}
             <p className="mid-text">OR</p>
 
