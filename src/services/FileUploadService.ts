@@ -1,28 +1,28 @@
-import axios from 'axios'
-import getPreUrl from '../services/GetPresignedURL'
+// import axios from 'axios'
+// import getPreUrl from '../services/GetPresignedURL'
 
-const upload = (file: any, onUploadProgress: any) => {
-  var signedUrl = getPreUrl(file.name)
+// const upload = async (file: any, onUploadProgress: any) => {
+//   var signedUrl = getPreUrl(file.name)
 
-  var options = {
-    headers: {
-      'Content-Type': file.type,
-    },
-    onUploadProgress: (progressEvent: any) => {
-      var percentCompleted = Math.round(
-        (progressEvent.loaded * 100) / progressEvent.total
-      )
-      console.log(percentCompleted)
-    },
-  }
+//   var options = {
+//     headers: {
+//       'Content-Type': file.type,
+//     },
+//     onUploadProgress: (progressEvent: any) => {
+//       var percentCompleted = Math.round(
+//         (progressEvent.loaded * 100) / progressEvent.total
+//       )
+//       console.log(percentCompleted)
+//     },
+//   }
 
-  return axios.put(signedUrl, file, options)
-}
-const getFiles = () => {
-  return axios.get('/files')
-}
-const FileUploadService = {
-  upload,
-  getFiles,
-}
-export default FileUploadService
+//   return await axios.put(signedUrl, file, options)
+// }
+// const getFiles = () => {
+//   return axios.get('/files')
+// }
+// const FileUploadService = {
+//   upload,
+//   getFiles,
+// }
+// export default FileUploadService
