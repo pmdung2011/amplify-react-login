@@ -12,7 +12,7 @@ function Content(props: any) {
   const listFiles = props.content.files
 
   //Invoke upload service file by file
-  const handleUpload = e => {
+  const handleUpload = async e => {
     e.preventDefault() //prevent the form from submitting
 
     var options = {
@@ -30,7 +30,7 @@ function Content(props: any) {
 
     for (let i = 0; i < listFiles.length; i++) {
       // const file = props.content.files[i]
-      var signedUrl = getSignedUrl(listFiles[i].name)
+      var signedUrl = await getSignedUrl(listFiles[i].name)
       axios
         .put(signedUrl, listFiles[i], options)
         .then(res => {
