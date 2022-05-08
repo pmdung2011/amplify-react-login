@@ -55,7 +55,7 @@ export default function Upload(props) {
     console.log('Selected files:', filesArr)
 
     const isNotValidateFormat = filesArr.find(
-      file => file.type !== 'application/pdf'
+      (file: { type: string }) => file.type !== 'application/pdf'
     )
 
     if (isNotValidateFormat) {

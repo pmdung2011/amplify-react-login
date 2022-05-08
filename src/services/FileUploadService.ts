@@ -8,7 +8,12 @@ const upload = (file: any, onUploadProgress: any) => {
     headers: {
       'Content-Type': file.type,
     },
-    onUploadProgress: onUploadProgress,
+    onUploadProgress: (progressEvent: any) => {
+      var percentCompleted = Math.round(
+        (progressEvent.loaded * 100) / progressEvent.total
+      )
+      console.log(percentCompleted)
+    },
   }
 
   return axios.put(signedUrl, file, options)
