@@ -58,10 +58,6 @@ const FilesDragAndDrop = ({ onFileChange }) => {
     }
   }
 
-  const getPdfType = (file: any) => {
-    return file.type === 'application/pdf'
-  }
-
   const handleDrop = (e: {
     preventDefault: () => void
     stopPropagation: () => void

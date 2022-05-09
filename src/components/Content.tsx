@@ -46,10 +46,10 @@ function Content(props: any) {
     }
   }
 
-  const fileRemove = (file: any) => {
-    console.log('File removed:', file)
-    props.content.files.splice(props.content.files.indexOf(file), 1)
-  }
+  // const fileRemove = (file: any) => {
+  //   console.log('File removed:', file)
+  //   props.content.files.splice(props.content.files.indexOf(file), 1)
+  // }
   const now = progress
 
   return (
