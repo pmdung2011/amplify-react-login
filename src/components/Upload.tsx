@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
-import { Auth } from 'aws-amplify'
 
 import Content from '../components/Content'
 import DragnDrop from '../components/FilesDragAndDrop'
+import fileValidated from '../util/FileValidation'
 import '../styles/Upload.scss'
+
 export default function Upload(props) {
   //props is passed for future use
   const initialStateFiles = { files: [] }
@@ -79,6 +80,7 @@ export default function Upload(props) {
     //Retrieve only pdf files
     filesArr = filesArr.filter(getPdfType)
     console.log('Selected files after validated: ', filesArr)
+
     setSelectedFiles({ files: filesArr })
     setModalOpen(true)
     fileInput.current.value = null // reset file input to re-render when selecting same file

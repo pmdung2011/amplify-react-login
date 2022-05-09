@@ -70,7 +70,11 @@ function Content(props: any) {
             {props.content?.files.map((file: any, index: any) => (
               <li key={index} className="file-item">
                 <div className="file-name">{file.name}</div>
-                <ProgressBar variant="success" now={now} label={`${now}%`} />
+                <ProgressBar
+                  variant={now === 100 ? 'warning' : 'success'}
+                  now={now}
+                  label={`${now}%`}
+                />
               </li>
             ))}
           </ul>
