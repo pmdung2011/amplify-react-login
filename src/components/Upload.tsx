@@ -28,13 +28,6 @@ export default function Upload(props) {
   //   }
   // }
 
-  //Validate file type
-  const getPdfType = (file: any) => {
-    return file.type === 'application/pdf'
-  }
-
-  var numbers = /^[0-9]+$/
-
   const handleSelect = (event: { target: { files: any } }) => {
     var files = event.target.files
     if (!files) {
@@ -43,46 +36,59 @@ export default function Upload(props) {
     var filesArr = Array.prototype.slice.call(files)
     console.log('Selected files:', filesArr)
 
-    const isNotValidateFormat = filesArr.find(
-      (file: { type: string }) => file.type !== 'application/pdf'
-    )
+    const updatedFilesArr = [] //Array of validated files
 
-    const isValidateFileName = filesArr.find((file: { name: string }) =>
-      file.name.match(numbers)
-    )
+    for (var i = 0; i < filesArr.length; i++) {
+      if (fileValidated.isValidateFormat(filesArr[i])) {
+        console.log('Only pdf files are allowed!!!')
+        toast.warn('Only pdf files are allowed!!!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
 
-    if (isNotValidateFormat) {
-      console.log('Only pdf files are allowed!!!')
-      toast.warn('Only pdf files are allowed!!!', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-    }
+      if (fileValidated.isValidateFileName(filesArr[i])) {
+        console.log('Not valid file name')
+        toast.warn('Not valid file name!!!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
 
-    if (!isValidateFileName) {
-      console.log('Not valid file name')
-      toast.warn('Not valid file name!!!', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
+      if (filesArr[i].size < 1) {
+        console.log('File is empty')
+        toast.warn('Cannot upload empty file', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+
+      if (fileValidated.isValidated(filesArr[i])) {
+        console.log('File ', filesArr[i].name, ' is valid')
+        updatedFilesArr.push(filesArr[i])
+      }
     }
 
     //Retrieve only pdf files
-    filesArr = filesArr.filter(getPdfType)
-    console.log('Selected files after validated: ', filesArr)
-
-    setSelectedFiles({ files: filesArr })
-    setModalOpen(true)
+    if (updatedFilesArr.length > 0) {
+      setSelectedFiles({ files: updatedFilesArr })
+      setModalOpen(true)
+    }
     fileInput.current.value = null // reset file input to re-render when selecting same file
   }
 

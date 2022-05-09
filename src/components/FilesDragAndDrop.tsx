@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
 
+import fileValidated from '../util/FileValidation'
 import '../styles/FilesDragAndDrop.scss'
 
 const FilesDragAndDrop = ({ onFileChange }) => {
@@ -73,26 +74,56 @@ const FilesDragAndDrop = ({ onFileChange }) => {
     let files = [...e.dataTransfer.files]
 
     // check if some uploaded file is not in one of the allowed formats
-    const isNotValidateFormat = files.find(
-      file => file.type !== 'application/pdf'
-    )
+    const updatedFilesArr = [] //Array of validated files
 
-    if (isNotValidateFormat) {
-      console.log('Only pdf files are allowed!!!')
-      toast.warn('Only pdf files are allowed!!!', {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
+    for (var i = 0; i < files.length; i++) {
+      if (fileValidated.isValidateFormat(files[i])) {
+        console.log('Only pdf files are allowed!!!')
+        toast.warn('Only pdf files are allowed!!!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+
+      if (fileValidated.isValidateFileName(files[i])) {
+        console.log('Not valid file name')
+        toast.warn('Not valid file name!!!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+
+      if (files[i].size < 1) {
+        console.log('File is empty')
+        toast.warn('Cannot upload empty file', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
+      }
+
+      if (fileValidated.isValidated(files[i])) {
+        console.log('File ', files[i].name, ' is valid')
+        updatedFilesArr.push(files[i])
+      }
     }
 
-    if (files && files.length) {
-      files = files.filter(getPdfType)
-      onFileChange(files)
+    if (updatedFilesArr && updatedFilesArr.length) {
+      onFileChange(updatedFilesArr)
     }
   }
 

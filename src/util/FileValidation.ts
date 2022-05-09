@@ -1,21 +1,22 @@
-const isNotValidateFormat = (filesArr: any[]) => {
-  return filesArr.find(
-    (file: { type: string }) => file.type !== 'application/pdf'
+const isValidateFormat = (file: File): boolean => {
+  return file.type === 'application/pdf' || file.type === 'pdf'
+}
+
+const isValidateFileName = (file: File): boolean => {
+  const fileName = file.name.split('.').slice(0, -1).join('.')
+  const numberFormat = /^-?\d+$/
+  return (
+    numberFormat.test(fileName) && fileName.length <= 7 && fileName.length >= 1
   )
 }
 
-const isValidateFileName = (filesArr: any[]) => {
-  var numbers = /^[0-9]+$/
-  return filesArr.find((file: { name: string }) => file.name.match(numbers))
-}
-
-const isValidated = (filesArr: any[]): boolean => {
-  return !isNotValidateFormat(filesArr) && isValidateFileName(filesArr)
+const isValidated = (file: File): boolean => {
+  return isValidateFormat(file) && isValidateFileName(file)
 }
 
 const fileUtilValidation = {
   isValidated,
-  isNotValidateFormat,
+  isValidateFormat,
   isValidateFileName,
 }
 
