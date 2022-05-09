@@ -3,12 +3,14 @@ import axios from 'axios'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import { ToastContainer, toast } from 'react-toastify'
 
+import AuthData from '../util/AuthData'
 import getSignedUrl from '../services/GetPresignedURL'
 import '../styles/Content.scss'
 
 function Content(props: any) {
   const [progress, setProgress] = React.useState(0)
   const listFiles = props.content.files
+  const token = AuthData.getToken()
 
   //Invoke upload service file by file
   const handleUpload = async e => {
@@ -16,7 +18,7 @@ function Content(props: any) {
 
     var options = {
       headers: {
-        'Content-Type': 'pdf',
+        Authorization: 'Bearer ' + token,
       },
       onUploadProgress: (progressEvent: any) => {
         var percentCompleted = Math.round(

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Auth } from 'aws-amplify'
 import { ToastContainer, toast } from 'react-toastify'
 
+import AuthData from '../util/AuthData'
 import 'react-toastify/dist/ReactToastify.css'
 import '../styles/Login.scss'
 
@@ -14,6 +15,9 @@ function Login() {
     try {
       const user = await Auth.signIn(email, password)
       console.log(user)
+      console.log('ID_token: ', user.signInUserSession.idToken.jwtToken)
+      //Save token to localStorage
+      AuthData.setToken(user.signInUserSession.idToken.jwtToken)
     } catch (error) {
       toast.error(error.message, {
         position: 'top-center',
