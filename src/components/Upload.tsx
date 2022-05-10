@@ -1,23 +1,23 @@
-import React, { useState, useRef } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import React, { useState, useRef } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
-import Content from '../components/Content'
-import DragnDrop from '../components/FilesDragAndDrop'
-import fileValidated from '../util/FileValidation'
-import '../styles/Upload.scss'
+import Content from '../components/Content';
+import DragnDrop from '../components/FilesDragAndDrop';
+import fileValidated from '../util/FileValidation';
+import '../styles/Upload.scss';
 
 export default function Upload(props) {
   //props is passed for future use
-  const initialStateFiles = { files: [] }
-  const [selectedFiles, setSelectedFiles] = useState(initialStateFiles)
+  const initialStateFiles = { files: [] };
+  const [selectedFiles, setSelectedFiles] = useState(initialStateFiles);
 
-  const [modalOpen, setModalOpen] = useState(false)
-  const fileInput = useRef(null)
+  const [modalOpen, setModalOpen] = useState(false);
+  const fileInput = useRef(null);
 
   const closeModal = () => {
-    setModalOpen(false)
-    setSelectedFiles(initialStateFiles) // reset selected files
-  }
+    setModalOpen(false);
+    setSelectedFiles(initialStateFiles); // reset selected files
+  };
 
   // async function signOut() {
   //   try {
@@ -29,18 +29,18 @@ export default function Upload(props) {
   // }
 
   const handleSelect = (event: { target: { files: any } }) => {
-    var files = event.target.files
+    var files = event.target.files;
     if (!files) {
-      return
+      return;
     }
-    var filesArr = Array.prototype.slice.call(files)
-    console.log('Selected files:', filesArr)
+    var filesArr = Array.prototype.slice.call(files);
+    console.log('Selected files:', filesArr);
 
-    const updatedFilesArr = [] //Array of validated files
+    const updatedFilesArr = []; //Array of validated files
 
     for (var i = 0; i < filesArr.length; i++) {
-      if (fileValidated.isValidateFormat(filesArr[i])) {
-        console.log('Only pdf files are allowed!!!')
+      if (!fileValidated.isValidateFormat(filesArr[i])) {
+        console.log('Only pdf files are allowed!!!');
         toast.warn('Only pdf files are allowed!!!', {
           position: 'bottom-right',
           autoClose: 5000,
@@ -49,11 +49,11 @@ export default function Upload(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
+        });
       }
 
-      if (fileValidated.isValidateFileName(filesArr[i])) {
-        console.log('Not valid file name')
+      if (!fileValidated.isValidateFileName(filesArr[i])) {
+        console.log('Not valid file name');
         toast.warn('Not valid file name!!!', {
           position: 'bottom-right',
           autoClose: 5000,
@@ -62,11 +62,11 @@ export default function Upload(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
+        });
       }
 
       if (filesArr[i].size < 1) {
-        console.log('File is empty')
+        console.log('File is empty');
         toast.warn('Cannot upload empty file', {
           position: 'bottom-right',
           autoClose: 5000,
@@ -75,31 +75,31 @@ export default function Upload(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
+        });
       }
 
       if (fileValidated.isValidated(filesArr[i])) {
-        console.log('File ', filesArr[i].name, ' is valid')
-        updatedFilesArr.push(filesArr[i])
+        console.log('File ', filesArr[i].name, ' is valid');
+        updatedFilesArr.push(filesArr[i]);
       }
     }
 
     //Retrieve only pdf files
     if (updatedFilesArr.length > 0) {
-      setSelectedFiles({ files: updatedFilesArr })
-      setModalOpen(true)
+      setSelectedFiles({ files: updatedFilesArr });
+      setModalOpen(true);
     }
-    fileInput.current.value = null // reset file input to re-render when selecting same file
-  }
+    fileInput.current.value = null; // reset file input to re-render when selecting same file
+  };
 
   //Drag and Drop selecting files
   const onFileChange = (filesProp: any) => {
-    console.log(filesProp)
+    console.log(filesProp);
     if (filesProp.length > 0) {
-      setSelectedFiles({ files: filesProp })
-      setModalOpen(true)
+      setSelectedFiles({ files: filesProp });
+      setModalOpen(true);
     }
-  }
+  };
   //Render Upload component
   return (
     <div className="container">
@@ -141,5 +141,5 @@ export default function Upload(props) {
         </div>
       </fieldset>
     </div>
-  )
+  );
 }
