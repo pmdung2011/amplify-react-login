@@ -1,20 +1,20 @@
-import React from 'react'
-import axios from 'axios'
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import { ToastContainer, toast } from 'react-toastify'
+import React from 'react';
+import axios from 'axios';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import { ToastContainer, toast } from 'react-toastify';
 
-import AuthData from '../util/AuthData'
-import getSignedUrl from '../services/GetPresignedURL'
-import '../styles/Content.scss'
+import AuthData from '../utils/AuthData';
+import getSignedUrl from '../services/GetPresignedURL';
+import '../styles/Content.scss';
 
 function Content(props: any) {
-  const [progress, setProgress] = React.useState(0)
-  const listFiles = props.content.files
-  const token = AuthData.getToken()
+  const [progress, setProgress] = React.useState(60);
+  const listFiles = props.content.files;
+  const token = AuthData.getToken();
 
   //Invoke upload service file by file
   const handleUpload = async e => {
-    e.preventDefault() //prevent the form from submitting
+    e.preventDefault(); //prevent the form from submitting
 
     var options = {
       headers: {
@@ -23,36 +23,36 @@ function Content(props: any) {
       onUploadProgress: (progressEvent: any) => {
         var percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total
-        )
-        console.log(percentCompleted)
-        setProgress(percentCompleted)
+        );
+        console.log(percentCompleted);
+        setProgress(percentCompleted);
       },
-    }
+    };
 
     for (let i = 0; i < listFiles.length; i++) {
       // const file = props.content.files[i]
-      var signedUrl = await getSignedUrl(listFiles[i].name)
+      var signedUrl = await getSignedUrl(listFiles[i].name);
       axios
         .put(signedUrl, listFiles[i], options)
         .then(res => {
           if (res.status === 200) {
-            console.log('File uploaded successfully')
-            toast.success('File uploaded successfully')
+            console.log('File uploaded successfully');
+            toast.success('File uploaded successfully');
           } else {
-            console.log('File upload failed')
-            toast.error('File upload failed')
+            console.log('File upload failed');
+            toast.error('File upload failed');
           }
-          console.log(res)
+          console.log(res);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
-  }
+  };
 
   // const fileRemove = (file: any) => {
   //   console.log('File removed:', file)
   //   props.content.files.splice(props.content.files.indexOf(file), 1)
   // }
-  const now = progress
+  const now = progress;
 
   return (
     <div className="modal">
@@ -61,7 +61,7 @@ function Content(props: any) {
         <div className="titleCloseBtn">
           <button
             onClick={() => {
-              props.setOpenModal(false)
+              props.setOpenModal(false);
             }}
           >
             X
@@ -73,9 +73,8 @@ function Content(props: any) {
               <li key={index} className="file-item">
                 <div className="file-name">{file.name}</div>
                 <ProgressBar
-                  variant={now === 100 ? 'warning' : 'success'}
+                  variant={now === 100 ? 'success' : 'warning'}
                   now={now}
-                  label={`${now}%`}
                 />
               </li>
             ))}
@@ -87,7 +86,7 @@ function Content(props: any) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Content
+export default Content;
