@@ -12,7 +12,7 @@ export default function Upload(props) {
   const [selectedFiles, setSelectedFiles] = useState(initialStateFiles);
 
   const [modalOpen, setModalOpen] = useState(false);
-  const fileInput = useRef(null);
+  const fileInput = useRef<any>(null);
 
   const closeModal = () => {
     setModalOpen(false);
