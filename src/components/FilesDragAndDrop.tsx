@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import fileValidated from '../util/FileValidation';
 import '../styles/FilesDragAndDrop.scss';
 
-const FilesDragAndDrop = ({ onFileChange }) => {
+const FilesDragAndDrop = ({ onFileChange }: any) => {
   const wrapperRef = useRef<any>(null);
   const drag = React.useRef<any>(null);
   const [dragging, setDragging] = useState(false);
